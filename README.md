@@ -14,7 +14,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"playground/custom_errors"
+	"github.com/fikri240794/custom_errors"
 )
 
 func main() {

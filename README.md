@@ -37,8 +37,8 @@ func main() {
 
 	// parse error to custom error
 	// if err parameter is custom error
-	// will return custom error and err is nil
-	// otherwise, will return passed err parameter
+	// will return isCustomError true and customError struct with value from err parameter
+	// otherwise, will isCustomError false and customError empty struct
 	isCustomError, customError = custom_errors.Parse(err)
 
 	if isCustomError {

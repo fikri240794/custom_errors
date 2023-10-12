@@ -100,6 +100,17 @@ func TestParse(t *testing.T) {
 		}
 	}{
 		{
+			Name:  "error is nil",
+			Error: nil,
+			Expected: struct {
+				IsCustomError bool
+				CustomError   Error
+			}{
+				IsCustomError: false,
+				CustomError:   Error{},
+			},
+		},
+		{
 			Name:  "error is not custom error",
 			Error: errors.New("some error"),
 			Expected: struct {
@@ -153,6 +164,10 @@ func TestParse(t *testing.T) {
 
 			if testCases[i].Expected.CustomError.Message != actualCustomError.Message {
 				t.Errorf("expected custom error message is %s, but got %s", testCases[i].Expected.CustomError.Message, actualCustomError.Message)
+			}
+
+			if testCases[i].Error != nil && testCases[i].Expected.IsCustomError && testCases[i].Error.Error() != actualCustomError.Message {
+				t.Errorf("expected error message is %s, but got %s", testCases[i].Error.Error(), actualCustomError.Message)
 			}
 
 			if len(testCases[i].Expected.CustomError.ErrorFields) != len(actualCustomError.ErrorFields) {
